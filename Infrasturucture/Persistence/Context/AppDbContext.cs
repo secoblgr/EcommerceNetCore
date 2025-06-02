@@ -15,5 +15,10 @@ namespace Persistence.Context
             optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB; database=ECommerce; Integrated Security=True; TrustServerCertificate=True;");               // kendi db miz için baglantı ayarları.
         }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Product> Products { get; set; }
+
     }
 }
