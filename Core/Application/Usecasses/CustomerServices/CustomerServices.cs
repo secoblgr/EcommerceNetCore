@@ -69,7 +69,6 @@ namespace Application.Usecasses.CustomerServices
             customer.FirstName = model.FirstName;
             customer.LastName = model.LastName;
             customer.Email = model.Email;
-            customer.Order = model.Order;
             await _repository.UpdateAsync(customer);
         }
     }
