@@ -13,6 +13,6 @@ namespace Application.Dtos.CustomerDtos
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public ICollection<Order> Order { get; set; }
+      //  public ICollection<Order> Order { get; set; }
     }
 }

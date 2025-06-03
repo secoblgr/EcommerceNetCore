@@ -1,6 +1,9 @@
 using Application.Interfaces;
 using Application.Usecasses.CategoryServices;
 using Application.Usecasses.CustomerServices;
+using Application.Usecasses.OrderItemServices;
+using Application.Usecasses.OrderServices;
+using Application.Usecasses.ProductServices;
 using Persistence.Context;
 using Persistence.Repositories;
 
@@ -12,6 +15,11 @@ builder.Services.AddDbContext<AppDbContext>();                                  
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));         // kullandýýgmýz repository servisimizi ekledik.
 builder.Services.AddScoped<ICategoryServices, CategoryServices>();               // catgeory servisimizi ekledik.
 builder.Services.AddScoped<ICustomerServices, CustomerServices>();              // customer servisimizi ekledik.
+builder.Services.AddScoped<IOrderServices, OrderServices>();              // order servisimizi ekledik.
+builder.Services.AddScoped<IOrderItemServices, OrderItemServices>();              // orderitem servisimizi ekledik
+builder.Services.AddScoped<IProductServices, ProductServices>();              // product servisimizi ekledik.
+                                                                                 
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

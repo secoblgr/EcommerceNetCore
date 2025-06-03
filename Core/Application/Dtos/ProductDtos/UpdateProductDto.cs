@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities
+namespace Application.Dtos.ProductDtos
 {
-    public class Product
+   public class UpdateProductDto
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
@@ -18,3 +19,4 @@ namespace Domain.Entities
       //  public Category Category { get; set; }
     }
 }
+

@@ -45,7 +45,7 @@ namespace Application.Usecasses.CustomerServices
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 Email = x.Email,
-                Order = x.Order
+             //   Order = x.Order
             }).ToList();
         }
 
@@ -58,7 +58,7 @@ namespace Application.Usecasses.CustomerServices
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 Email = customer.Email,
-                Order = customer.Order,
+              //  Order = customer.Order,
             };
         }
 
