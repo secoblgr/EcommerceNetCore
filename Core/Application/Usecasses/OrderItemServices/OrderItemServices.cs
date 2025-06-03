@@ -22,7 +22,7 @@ namespace Application.Usecasses.OrderItemServices
         {
             await _repository.CreateAsync(new OrderItem
             {
-                OrderId = model.OrderId,
+                //  OrderId = model.OrderId,
                 ProductId = model.ProductId,
                 Quantity = model.Quantity,
                 Price = model.Price,
@@ -31,22 +31,26 @@ namespace Application.Usecasses.OrderItemServices
 
         public async Task DeleteOrderItemAsync(int id)
         {
-           var value = await _repository.GetByIdAsync(id);
+            var value = await _repository.GetByIdAsync(id);
             await _repository.DeleteAsync(value);
         }
 
         public async Task<List<ResultOrderItemDto>> GetAllOrderItemAsync()
         {
-            var orderItems = await _repository.GetAllAsync();
-            return orderItems.Select(x => new ResultOrderItemDto
-            {
-                OrderId = x.OrderId,
-                OrderItemId = x.OrderItemId,
-                ProductId = x.ProductId,
-                Quantity = x.Quantity,
-                Price = x.Price,
-            }).ToList();
+            var orderItems = await _repository.GetAllAsync() ?? new List<OrderItem>();
+
+            return orderItems
+                .Where(x => x != null)
+                .Select(x => new ResultOrderItemDto
+                {
+                    OrderId = x.OrderId,
+                    OrderItemId = x.OrderItemId,
+                    ProductId = x.ProductId,
+                    Quantity = x.Quantity,
+                    Price = x.Price,
+                }).ToList();
         }
+
 
         public async Task<GetByIdOrderItemDto> GetByIdOrderItemAsync(int id)
         {

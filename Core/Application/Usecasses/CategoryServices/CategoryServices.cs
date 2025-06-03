@@ -21,7 +21,7 @@ namespace Application.Usecasses.CategoryServices
 
         public async Task CreateCategoryAsync(CreateCategoryDto model)
         {
-            await _repository.CreateAsync( new Category
+            await _repository.CreateAsync(new Category
             {
                 CategoryName = model.CategoryName,
             });
@@ -36,12 +36,15 @@ namespace Application.Usecasses.CategoryServices
         public async Task<List<ResultCategoryDto>> GetAllCategoryAsync()
         {
             var categories = await _repository.GetAllAsync();
-            return categories.Select(x => new ResultCategoryDto
-            {
-                CategoryId = x.CategoryId,
-                CategoryName = x.CategoryName,
-            }).ToList();
+
+            return categories
+                .Select(x => new ResultCategoryDto
+                {
+                    CategoryId = x.CategoryId,
+                    CategoryName = x.CategoryName,
+                }).ToList();
         }
+
 
         public async Task<GetByIdCategoryDto> GetByIdCategoryAsync(int id)
         {

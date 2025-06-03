@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Dtos.OrderItemDtos;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Application.Dtos.OrderDtos
         public string OrderStatus { get; set; }
         public string ShippingAddress { get; set; }
         public int CustomerId { get; set; }
-     //   public Customer Customer { get; set; }
-      //  public ICollection<OrderItem> OrderItems { get; set; }
+        public Customer Customer { get; set; }
+        public ICollection<ResultOrderItemDto> OrderItems { get; set; }
     }
 }

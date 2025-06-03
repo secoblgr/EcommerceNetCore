@@ -39,15 +39,17 @@ namespace Application.Usecasses.CustomerServices
         public async Task<List<ResultCustomerDto>> GetAllCustomerAsync()
         {
             var customers = await _repository.GetAllAsync();
-            return customers.Select(x => new ResultCustomerDto
-            {
-                CustomerId = x.CustomerId,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                Email = x.Email,
-             //   Order = x.Order
-            }).ToList();
+
+            return customers
+                .Select(x => new ResultCustomerDto
+                {
+                    CustomerId = x.CustomerId,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Email = x.Email,
+                }).ToList();
         }
+
 
         public async Task<GetByIdCustomerDto> GetByIdCustomerAsync(int id)
         {
@@ -58,7 +60,7 @@ namespace Application.Usecasses.CustomerServices
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,
                 Email = customer.Email,
-              //  Order = customer.Order,
+                //  Order = customer.Order,
             };
         }
 

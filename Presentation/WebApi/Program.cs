@@ -1,4 +1,6 @@
 using Application.Interfaces;
+using Application.Usecasses.CartItemServices;
+using Application.Usecasses.CartServices;
 using Application.Usecasses.CategoryServices;
 using Application.Usecasses.CustomerServices;
 using Application.Usecasses.OrderItemServices;
@@ -18,7 +20,9 @@ builder.Services.AddScoped<ICustomerServices, CustomerServices>();              
 builder.Services.AddScoped<IOrderServices, OrderServices>();              // order servisimizi ekledik.
 builder.Services.AddScoped<IOrderItemServices, OrderItemServices>();              // orderitem servisimizi ekledik
 builder.Services.AddScoped<IProductServices, ProductServices>();              // product servisimizi ekledik.
-                                                                                 
+builder.Services.AddScoped<ICartServices, CartServices>();              // product servisimizi ekledik.
+builder.Services.AddScoped<ICartItemServices, CartItemServices>();              // product servisimizi ekledik.
+
 
 
 builder.Services.AddControllers();

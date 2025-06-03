@@ -1,4 +1,5 @@
 ﻿using Application.Dtos.OrderDtos;
+using Application.Dtos.OrderItemDtos;
 using Application.Interfaces;
 using Domain.Entities;
 using System;
@@ -12,22 +13,36 @@ namespace Application.Usecasses.OrderServices
     public class OrderServices : IOrderServices
     {
         private readonly IRepository<Order> _repository;                           // çalışacagımız modele bağlantı .
+        private readonly IRepository<OrderItem> _orderItemRepository;
 
-        public OrderServices(IRepository<Order> repository)
+
+        public OrderServices(IRepository<Order> repository, IRepository<OrderItem> orderItemRepository)
         {
             _repository = repository;
+            _orderItemRepository = orderItemRepository;
         }
 
         public async Task CreateOrderAsync(CreateOrderDto model)
         {
-            await _repository.CreateAsync(new Order
+            var order = new Order
             {
                 OrderDate = model.OrderDate,
                 TotalAmount = model.TotalAmount,
                 ShippingAddress = model.ShippingAddress,
                 OrderStatus = model.OrderStatus,
                 CustomerId = model.CustomerId,
-            });
+            };
+            await _repository.CreateAsync(order);
+            foreach (var item in model.OrderItems)
+            {
+                await _orderItemRepository.CreateAsync(new OrderItem
+                {
+                    OrderId = order.OrderId,
+                    ProductId = item.ProductId,
+                    Quantity = item.Quantity,
+                    Price = item.Price,
+                });
+            }
         }
 
         public async Task DeleteOrderAsync(int id)
@@ -38,19 +53,28 @@ namespace Application.Usecasses.OrderServices
 
         public async Task<List<ResultOrderDto>> GetAllOrderAsync()
         {
-            var order = await _repository.GetAllAsync();
-            return order.Select(x => new ResultOrderDto
+            var orders = await _repository.GetAllAsync();
+            var orderitems = await _orderItemRepository.GetAllAsync();
+
+            return orders.Select(x => new ResultOrderDto
             {
                 OrderId = x.OrderId,
-             //   Customer = x.Customer,
                 OrderDate = x.OrderDate,
                 TotalAmount = x.TotalAmount,
                 ShippingAddress = x.ShippingAddress,
                 OrderStatus = x.OrderStatus,
-             //   OrderItems = x.OrderItems,
                 CustomerId = x.CustomerId,
+                OrderItems = x.OrderItems.Select(oi => new ResultOrderItemDto
+                {
+                    OrderId = oi.OrderId,
+                    ProductId = oi.ProductId,
+                    Quantity = oi.Quantity,
+                    Price = oi.Price,
+                    OrderItemId = oi.OrderItemId,
+                }).ToList()
             }).ToList();
         }
+
 
         public async Task<GetByIdOrderDto> GetByIdOrderAsync(int id)
         {
@@ -58,16 +82,15 @@ namespace Application.Usecasses.OrderServices
             return new GetByIdOrderDto
             {
                 OrderId = order.OrderId,
-               // Customer = order.Customer,
+                // Customer = order.Customer,
                 CustomerId = order.CustomerId,
                 OrderDate = order.OrderDate,
                 TotalAmount = order.TotalAmount,
                 ShippingAddress = order.ShippingAddress,
                 OrderStatus = order.OrderStatus,
-               // OrderItems = order.OrderItems,
+                //OrderItems = order.OrderItems,
             };
         }
-
         public async Task UpdateOrderAsync(UpdateOrderDto model)
         {
             var order = await _repository.GetByIdAsync(model.OrderId);
@@ -80,3 +103,4 @@ namespace Application.Usecasses.OrderServices
         }
     }
 }
+
