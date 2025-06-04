@@ -41,17 +41,16 @@ namespace Application.Usecasses.ProductServices
         {
             var products = await _repository.GetAllAsync();
 
-            return products
-                .Select(x => new ResultProductDto
-                {
-                    ProductId = x.ProductId,
-                    ProductName = x.ProductName,
-                    Description = x.Description,
-                    Price = x.Price,
-                    Stock = x.Stock,
-                    ImageUrl = x.ImageUrl,
-                    CategoryId = x.CategoryId
-                }).ToList();
+            return products.Select(x => new ResultProductDto
+            {
+                ProductId = x.ProductId,
+                ProductName = x.ProductName,
+                Description = x.Description,
+                Price = x.Price,
+                Stock = x.Stock,
+                ImageUrl = x.ImageUrl,
+                CategoryId = x.CategoryId
+            }).ToList();
         }
 
 
@@ -73,6 +72,7 @@ namespace Application.Usecasses.ProductServices
         public async Task UpdateProductAsync(UpdateProductDto model)
         {
             var product = await _repository.GetByIdAsync(model.ProductId);
+
             product.ProductName = model.ProductName;
             product.Description = model.Description;
             product.Price = model.Price;

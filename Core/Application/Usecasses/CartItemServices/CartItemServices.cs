@@ -22,7 +22,7 @@ namespace Application.Usecasses.CartItemServices
         {
             await _repository.CreateAsync(new CartItem
             {
-               // CartId = model.CartId,
+                // CartId = model.CartId,
                 ProductId = model.ProductId,
                 Quantity = model.Quantity,
                 TotalPrice = model.TotalPrice,
@@ -37,10 +37,10 @@ namespace Application.Usecasses.CartItemServices
 
         public async Task<List<ResultCartItemDto>> GetAllCartItemAsync()
         {
-            var cartItems = await _repository.GetAllAsync() ?? new List<CartItem>();
+            var cartItems = await _repository.GetAllAsync();
 
             return cartItems
-                .Where(x => x != null) // Ekstra güvenlik: içindeki item'lar da null olabilir
+
                 .Select(x => new ResultCartItemDto
                 {
                     CartId = x.CartId,
@@ -74,5 +74,7 @@ namespace Application.Usecasses.CartItemServices
             cartItem.CartId = model.CartId;
             await _repository.UpdateAsync(cartItem);
         }
+
+
     }
 }

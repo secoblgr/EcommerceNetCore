@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,5 +14,6 @@ namespace Application.Interfaces
         Task CreateAsync(T entity);                         // T modeline göre create işlmei yapmızı sağlar.
         Task UpdateAsync(T entity);                         // T modeline göre update işlemi yapılır, modelin update dto da olan verileri güncellenir.
         Task DeleteAsync(T entity);                         // id ye göre bulunan T modelinin silinmesini sağlar.
+        Task<T> GetByFilterAsync(Expression<Func<T, bool>> filter);
     }
 }
