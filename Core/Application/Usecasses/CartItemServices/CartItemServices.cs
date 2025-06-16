@@ -69,9 +69,9 @@ namespace Application.Usecasses.CartItemServices
         {
             var cartItem = await _repository.GetByIdAsync(model.CartItemId);
             cartItem.Quantity = model.Quantity;
-            cartItem.TotalPrice = model.TotalPrice;
+          //  cartItem.TotalPrice = model.TotalPrice;
             cartItem.ProductId = model.ProductId;
-            cartItem.CartId = model.CartId;
+          //  cartItem.CartId = model.CartId;
             await _repository.UpdateAsync(cartItem);
         }
 

@@ -142,10 +142,25 @@ namespace Application.Usecasses.CartServices
         public async Task UpdateCartAsync(UpdateCartDto model)
         {
             var cart = await _repository.GetByIdAsync(model.CartId);
-            cart.CreatedDate = model.CreatedDate;
-            cart.CustomerId = model.CustomerId;
-            cart.TotalAmount = model.TotalAmount;
+            var cartItems = await _cartItemRepository.GetAllAsync();                //cart item null dönmemesi için burda çagırıyoruz yapıyoruz.
+            var sum = 0;
+            foreach (var item1 in model.CartItems)
+            {
+                foreach (var item in cart.CartItems)
+                {
+                    var cartItem = await _cartItemRepository.GetByIdAsync(item.CartItemId);
+
+                    if (item.CartItemId == item1.CartItemId)
+                    {
+                        cartItem.Quantity = item1.Quantity;
+                        cartItem.TotalPrice = item1.TotalPrice;
+                    }
+                    sum = sum + item.TotalPrice;
+                }
+            }
+            cart.TotalAmount = sum;
             await _repository.UpdateAsync(cart);
         }
     }
 }
+
