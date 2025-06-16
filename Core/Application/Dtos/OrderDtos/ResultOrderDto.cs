@@ -16,7 +16,7 @@ namespace Application.Dtos.OrderDtos
         public string OrderStatus { get; set; }
         public string ShippingAddress { get; set; }
         public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
+       public Customer Customer { get; set; }
         public ICollection<ResultOrderItemDto> OrderItems { get; set; }
     }
 }

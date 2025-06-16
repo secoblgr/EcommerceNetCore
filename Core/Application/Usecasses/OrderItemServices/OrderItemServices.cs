@@ -69,7 +69,7 @@ namespace Application.Usecasses.OrderItemServices
         {
             var orderItem = await _repository.GetByIdAsync(model.OrderItemId);
             orderItem.OrderItemId = model.OrderItemId;
-            orderItem.OrderId = model.OrderId;
+           // orderItem.OrderId = model.OrderId;
             orderItem.ProductId = model.ProductId;
             orderItem.Quantity = model.Quantity;
             orderItem.Price = model.Price;
