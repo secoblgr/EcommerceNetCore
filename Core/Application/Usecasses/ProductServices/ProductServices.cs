@@ -1,5 +1,6 @@
 ﻿using Application.Dtos.ProductDtos;
 using Application.Interfaces;
+using Application.Interfaces.IProductsRepository;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,13 @@ namespace Application.Usecasses.ProductServices
     public class ProductServices : IProductServices
     {
         private readonly IRepository<Product> _repository;
+        private readonly IProductsRepository _productsrepository;
 
-        public ProductServices(IRepository<Product> repository)
+
+        public ProductServices(IRepository<Product> repository, IProductsRepository productsrepository)
         {
             _repository = repository;
+            _productsrepository = productsrepository;
         }
 
         public async Task CreateProductAsync(CreateProductDto model)
@@ -67,6 +71,38 @@ namespace Application.Usecasses.ProductServices
                 ImageUrl = product.ImageUrl,
                 CategoryId = product.CategoryId,
             };
+        }
+
+        public async Task<List<ResultProductDto>> GetByProductCategory(int categoryId)
+        {
+            var products = await _productsrepository.GetProductsByCategory(categoryId);
+
+            return products.Select(x => new ResultProductDto
+            {
+                ProductId = x.ProductId,
+                ProductName = x.ProductName,
+                Description = x.Description,
+                Price = x.Price,
+                Stock = x.Stock,
+                ImageUrl = x.ImageUrl,
+                CategoryId = x.CategoryId
+            }).ToList();
+        }
+
+        public async Task<List<ResultProductDto>> GetTakeAsync(int count)            // count kadar listeleme yapmamızı sağlayan metod.
+        {
+            var products = await _repository.GetProductTakeAsync(count);
+
+            return products.Select(x => new ResultProductDto
+            {
+                ProductId = x.ProductId,
+                ProductName = x.ProductName,
+                Description = x.Description,
+                Price = x.Price,
+                Stock = x.Stock,
+                ImageUrl = x.ImageUrl,
+                CategoryId = x.CategoryId
+            }).ToList();
         }
 
         public async Task UpdateProductAsync(UpdateProductDto model)

@@ -1,7 +1,24 @@
+using Application.Interfaces;
+using Application.Interfaces.IProductsRepository;
+using Application.Usecasses.CategoryServices;
+using Application.Usecasses.CustomerServices;
+using Application.Usecasses.OrderItemServices;
+using Application.Usecasses.OrderServices;
+using Application.Usecasses.ProductServices;
+using Persistence.Context;
+using Persistence.Repositories;
+using Persistence.Repositories.ProductsRepository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));         // kullandýýgmýz repository servisimizi ekledik.
+builder.Services.AddScoped<IProductServices, ProductServices>();
+builder.Services.AddScoped<ICategoryServices, CategoryServices>();               // catgeory servisimizi ekledik.
+builder.Services.AddScoped<IProductsRepository, ProductsRepository>();              
+
 
 var app = builder.Build();
 

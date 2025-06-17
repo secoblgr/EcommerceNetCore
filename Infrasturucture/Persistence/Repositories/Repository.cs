@@ -51,5 +51,12 @@ namespace Persistence.Repositories
              _context.Set<T>().Update(entity);
             await _context.SaveChangesAsync(); 
         }
+
+        public async Task<List<T>>  GetProductTakeAsync(int count)
+        {
+            return await _context.Set<T>().Take(count).ToListAsync();
+        }
+
+       
     }
 }

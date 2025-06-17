@@ -14,5 +14,7 @@ namespace Application.Usecasses.ProductServices
         Task CreateProductAsync(CreateProductDto model);
         Task UpdateProductAsync(UpdateProductDto model);
         Task DeleteProductAsync(int id);
+        Task<List<ResultProductDto>> GetTakeAsync(int count);
+        Task<List<ResultProductDto>> GetByProductCategory(int category);
     }
 }

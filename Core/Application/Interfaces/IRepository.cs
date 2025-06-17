@@ -15,5 +15,6 @@ namespace Application.Interfaces
         Task UpdateAsync(T entity);                         // T modeline göre update işlemi yapılır, modelin update dto da olan verileri güncellenir.
         Task DeleteAsync(T entity);                         // id ye göre bulunan T modelinin silinmesini sağlar.
         Task<T> GetByFilterAsync(Expression<Func<T, bool>> filter);
+        Task<List<T>> GetProductTakeAsync(int count);
     }
 }
