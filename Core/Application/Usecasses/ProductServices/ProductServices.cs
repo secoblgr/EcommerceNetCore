@@ -89,6 +89,51 @@ namespace Application.Usecasses.ProductServices
             }).ToList();
         }
 
+        public async Task<List<ResultProductDto>> GetProductsByPrice(decimal min, decimal max)
+        {
+            var products = await _productsrepository.GetProductsByPriceFilter(min, max);
+            return products.Select(x => new ResultProductDto
+            {
+                ProductId = x.ProductId,
+                ProductName = x.ProductName,
+                Description = x.Description,
+                Price = x.Price,
+                Stock = x.Stock,
+                ImageUrl = x.ImageUrl,
+                CategoryId = x.CategoryId
+            }).ToList();
+        }
+
+        public async Task<List<ResultProductDto>> GetProductsSearch(string searchTerm)
+        {
+            var products = await _productsrepository.SearchProductsByNameAsync(searchTerm);
+            return products.Select(x => new ResultProductDto
+            {
+                ProductId = x.ProductId,
+                ProductName = x.ProductName,
+                Description = x.Description,
+                Price = x.Price,
+                Stock = x.Stock,
+                ImageUrl = x.ImageUrl,
+                CategoryId = x.CategoryId
+            }).ToList();
+        }
+
+        public async Task<List<ResultProductDto>> GetProductsSortedByPrice(string sortOrder)
+        {
+            var products = await _productsrepository.GetProductsSortedByPriceAsync(sortOrder);
+            return products.Select(p => new ResultProductDto
+            {
+                ProductId = p.ProductId,
+                ProductName = p.ProductName,
+                Price = p.Price,
+                Stock = p.Stock,
+                ImageUrl = p.ImageUrl,
+                Description = p.Description,
+                CategoryId = p.CategoryId
+            }).ToList();
+        }
+
         public async Task<List<ResultProductDto>> GetTakeAsync(int count)            // count kadar listeleme yapmamızı sağlayan metod.
         {
             var products = await _repository.GetProductTakeAsync(count);

@@ -25,6 +25,30 @@ namespace Persistence.Repositories.ProductsRepository
         {
             return await _context.Products.Where(x => x.CategoryId == categoryId).ToListAsync();
         }
+
+        public async Task<List<Product>> GetProductsByPriceFilter(decimal minPrice, decimal maxPrice)
+        {
+            return await _context.Products.Where(x => x.Price >= minPrice && x.Price <= maxPrice).ToListAsync();
+        }
+
+        public async Task<List<Product>> GetProductsSortedByPriceAsync(string sortOrder)
+        {
+            IQueryable<Product> query = _context.Products;
+
+            query = sortOrder switch
+            {
+                "price_asc" => query.OrderBy(p => p.Price),
+                "price_desc" => query.OrderByDescending(p => p.Price),
+                _ => query
+            };
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<List<Product>> SearchProductsByNameAsync(string searchTerm)
+        {
+            return await _context.Products.Where(x => x.ProductName.Contains(searchTerm) || x.Description.Contains(searchTerm)).ToListAsync();
+        }
     }
 }
 

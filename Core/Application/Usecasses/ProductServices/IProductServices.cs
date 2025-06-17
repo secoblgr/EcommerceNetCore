@@ -16,5 +16,9 @@ namespace Application.Usecasses.ProductServices
         Task DeleteProductAsync(int id);
         Task<List<ResultProductDto>> GetTakeAsync(int count);
         Task<List<ResultProductDto>> GetByProductCategory(int category);
+        Task<List<ResultProductDto>> GetProductsByPrice(decimal min, decimal max);
+        Task<List<ResultProductDto>> GetProductsSortedByPrice(string sortOrder);
+        Task<List<ResultProductDto>> GetProductsSearch(string searchTerm);
+
     }
 }
