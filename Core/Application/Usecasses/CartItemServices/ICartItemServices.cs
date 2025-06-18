@@ -14,6 +14,8 @@ namespace Application.Usecasses.CartItemServices
         Task CreateCartItemAsync(CreateCartItemDto model);
         Task UpdateCartItemAsync(UpdateCartItemDto model);
         Task DeleteCartItemAsync(int id);
-      //  Task<List<ResultCartItemDto>> GetByCartIdCartItemAsync(int cartId);
+        Task UpdateQuantity(int cartId, int productId, int quantity);
+        Task<bool> CheckCartItem(int cartId,int productId);
+
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Application.Dtos.CartItemDtos;
 using Application.Interfaces;
+using Application.Interfaces.ICartItemsRepository;
+using Application.Interfaces.ICartsRepository;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,17 +14,25 @@ namespace Application.Usecasses.CartItemServices
     public class CartItemServices : ICartItemServices
     {
         private readonly IRepository<CartItem> _repository;
+        private readonly ICartItemsRepository _cartItemsRepository;
 
-        public CartItemServices(IRepository<CartItem> repository)
+        public CartItemServices(IRepository<CartItem> repository, ICartItemsRepository cartItemsRepository)
         {
             _repository = repository;
+            _cartItemsRepository = cartItemsRepository;
+        }
+
+        public async Task<bool> CheckCartItem(int cartId, int productId)
+        {
+            var value = await _cartItemsRepository.CheckCartItemAsync(cartId, productId);
+            return value;
         }
 
         public async Task CreateCartItemAsync(CreateCartItemDto model)
         {
             await _repository.CreateAsync(new CartItem
             {
-                // CartId = model.CartId,
+                CartId = model.CartId,
                 ProductId = model.ProductId,
                 Quantity = model.Quantity,
                 TotalPrice = model.TotalPrice,
@@ -69,12 +79,15 @@ namespace Application.Usecasses.CartItemServices
         {
             var cartItem = await _repository.GetByIdAsync(model.CartItemId);
             cartItem.Quantity = model.Quantity;
-          //  cartItem.TotalPrice = model.TotalPrice;
+            //  cartItem.TotalPrice = model.TotalPrice;
             cartItem.ProductId = model.ProductId;
-          //  cartItem.CartId = model.CartId;
+            //  cartItem.CartId = model.CartId;
             await _repository.UpdateAsync(cartItem);
         }
 
-
+        public async Task UpdateQuantity(int cartId, int productId, int quantity)
+        {
+            await _cartItemsRepository.UpdateQuantityAsync(cartId, productId, quantity);
+        }
     }
 }

@@ -1,5 +1,9 @@
 using Application.Interfaces;
+using Application.Interfaces.ICartItemsRepository;
+using Application.Interfaces.ICartsRepository;
 using Application.Interfaces.IProductsRepository;
+using Application.Usecasses.CartItemServices;
+using Application.Usecasses.CartServices;
 using Application.Usecasses.CategoryServices;
 using Application.Usecasses.CustomerServices;
 using Application.Usecasses.OrderItemServices;
@@ -7,6 +11,8 @@ using Application.Usecasses.OrderServices;
 using Application.Usecasses.ProductServices;
 using Persistence.Context;
 using Persistence.Repositories;
+using Persistence.Repositories.CartItemsRepository;
+using Persistence.Repositories.CartsRepository;
 using Persistence.Repositories.ProductsRepository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +23,15 @@ builder.Services.AddDbContext<AppDbContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));         // kullandýýgmýz repository servisimizi ekledik.
 builder.Services.AddScoped<IProductServices, ProductServices>();
 builder.Services.AddScoped<ICategoryServices, CategoryServices>();               // catgeory servisimizi ekledik.
-builder.Services.AddScoped<IProductsRepository, ProductsRepository>();              
+builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
+builder.Services.AddScoped<ICartServices, CartServices>();
+builder.Services.AddScoped<ICartItemServices, CartItemServices>();
+builder.Services.AddScoped<ICartsRepository, CartsRepository>();
+builder.Services.AddScoped<ICartItemsRepository, CartItemsRepository>();
+
+
+
+
 
 
 var app = builder.Build();
@@ -39,6 +53,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Cart}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

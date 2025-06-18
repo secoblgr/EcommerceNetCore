@@ -63,7 +63,7 @@
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <form method="post" action="/Product/Index">
                                 <div class="input-group">
-                                    <input type="text" name="searchTerm" class="form-control w-75" placeholder="Search"  />
+                                    <input type="text" name="searchTerm" class="form-control w-75" placeholder="Search" />
                                     <div class="input-group-append">
                                         <button type="submit" class="input-group-text bg-transparent text-primary" style="border:none; cursor:pointer;">
                                             <i class="fa fa-search"></i>
@@ -99,7 +99,9 @@
                                     <a href="@Url.Action("Detail", "Product", new { id = item.ProductId })" class="btn btn-sm text-dark p-0">
                                         <i class="fas fa-eye text-primary mr-1"></i>View Detail
                                     </a>
-                                    <a href="#" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                                    <a href="#" class="btn btn-sm text-dark p-0" onclick="addToCart(@item.ProductId,@item.Price)">
+                                        <i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -110,3 +112,6 @@
         </div>
     </div>
 </body>
+
+<!-- Cart Add Buton js -->
+<script src="/js/AddToBasket.js" > </script>

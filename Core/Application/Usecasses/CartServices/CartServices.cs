@@ -2,6 +2,7 @@
 using Application.Dtos.CartItemDtos;
 using Application.Dtos.ProductDtos;
 using Application.Interfaces;
+using Application.Interfaces.ICartsRepository;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,13 +18,15 @@ namespace Application.Usecasses.CartServices
         private readonly IRepository<CartItem> _cartItemRepository;
         private readonly IRepository<Customer> _customerRepository;
         private readonly IRepository<Product> _productRepositorty;
+        private readonly ICartsRepository _cartsRepository;
 
-        public CartServices(IRepository<CartItem> cartItemRepository, IRepository<Cart> repository, IRepository<Customer> customerRepository, IRepository<Product> productRepositorty)
+        public CartServices(IRepository<CartItem> cartItemRepository, IRepository<Cart> repository, IRepository<Customer> customerRepository, IRepository<Product> productRepositorty, ICartsRepository cartsRepository)
         {
             _cartItemRepository = cartItemRepository;
             _repository = repository;
             _customerRepository = customerRepository;
             _productRepositorty = productRepositorty;
+            _cartsRepository = cartsRepository;
         }
 
         public async Task CreateCartAsync(CreateCartDto model)
@@ -120,6 +123,7 @@ namespace Application.Usecasses.CartServices
                 CreatedDate = cart.CreatedDate,
                 CustomerId = cart.CustomerId,
                 CartItems = new List<ResultCartItemDto>(),
+                TotalAmount = cart.TotalAmount,
                 Customer = customer,
             };
             foreach (var item in cart.CartItems)
@@ -160,6 +164,11 @@ namespace Application.Usecasses.CartServices
             }
             cart.TotalAmount = sum;
             await _repository.UpdateAsync(cart);
+        }
+
+        public async Task UpdateTotalAmount(int cartId, decimal totalAmount)
+        {
+            await _cartsRepository.UpdateTotalAmountAsync(cartId, totalAmount);
         }
     }
 }
