@@ -58,5 +58,14 @@ namespace WebApp.Controllers
             return View(allProducts);
         }
 
+        public async Task<IActionResult> Detail(int id)
+        {
+            var categories = await _categoryServices.GetAllCategoryAsync();
+            ViewBag.Categories = categories;
+
+            var product = await _productServices.GetByIdProductAsync(id);
+            return View(product);
+        }
+
     }
 }
