@@ -33,16 +33,16 @@
                         @foreach (var item in Model.CartItems)
                         {
                             <tr>
-<<<<<<< HEAD
+
                                 <td class="align-middle">
                                     <div class="d-flex align-items-center">
                                         <img src="@item.Product.ImageUrl" class="" style="width: 80px; margin-right: 14px; margin-left:8px;">
                                         <span class="ml-2 h5">@item.Product.ProductName</span>
                                     </div>
                                 </td>
-=======
+
                                 <td class="align-middle"><img src="@item.Product.ImageUrl" alt="" style="width: 50px;"> @item.Product.ProductName</td>
->>>>>>> 58f96cfffd6ca9a8d8c9210cece14f123910aeb8
+
                                 <td class="align-middle">@item.Product.Price</td>
                                 <td class="align-middle">
                                     <div class="input-group quantity mx-auto" style="width: 100px;">
@@ -60,15 +60,15 @@
                                     </div>
                                 </td>
                                 <td class="align-middle">@item.TotalPrice</td>
-<<<<<<< HEAD
+
                                 <td class="align-middle">
                                     <button class="btn btn-sm btn-primary" onclick="deleteFromCart(@item.CartItemId,@item.ProductId)">
                                         <i class="fa fa-times"></i>
                                     </button>
                                 </td>
-=======
+
                                 <td class="align-middle"><button class="btn btn-sm btn-primary" onclick="deleteFromCart(@item.CartItemId,@item.ProductId)"><i class="fa fa-times"></i></button></td>
->>>>>>> 58f96cfffd6ca9a8d8c9210cece14f123910aeb8
+
                             </tr>
                         }
                     }
@@ -119,11 +119,10 @@
 </div>
 <!-- Cart End -->
 
-<<<<<<< HEAD
-<!-- Js Fonksiyonlarımız -->
-=======
 
->>>>>>> 58f96cfffd6ca9a8d8c9210cece14f123910aeb8
+<!-- Js Fonksiyonlarımız -->
+
+
 <script src="/js/quantitiyUpdate.js"></script>
 <script src="/js/DeleteCartItem.js"></script>
 
