@@ -18,7 +18,7 @@ namespace WebApp.Controllers
             _cartServices = cartServices;
             _cartItemServices = cartItemServices;
         }
-        public async Task<IActionResult> Index(int id = 1)
+        public async Task<IActionResult> Index(int id)
         {
             var cartItemCount = await _cartItemServices.GetAllCartItemAsync();
             ViewBag.CartItemCount = cartItemCount;
@@ -37,7 +37,7 @@ namespace WebApp.Controllers
         {
             try
             {
-                model.CartId = 1;
+                model.CartId = 2;
                 var cart = await _cartServices.GetByIdCartAsync(model.CartId);
                 var check = await _cartItemServices.CheckCartItem(model.CartId, model.ProductId);
 

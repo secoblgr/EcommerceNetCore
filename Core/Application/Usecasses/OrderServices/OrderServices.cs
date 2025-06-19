@@ -1,10 +1,14 @@
-﻿using Application.Dtos.OrderDtos;
+﻿using Application.Dtos.CityDtos;
+using Application.Dtos.OrderDtos;
 using Application.Dtos.OrderItemDtos;
+using Application.Dtos.TownDtos;
 using Application.Interfaces;
+using Application.Interfaces.IOrdersRepository;
 using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,14 +20,17 @@ namespace Application.Usecasses.OrderServices
         private readonly IRepository<OrderItem> _orderItemRepository;
         private readonly IRepository<Customer> _customerRepository;
         private readonly IRepository<Product> _productRepository;
+        private readonly IOrderRepository _orderRepository;
 
 
-        public OrderServices(IRepository<Order> repository, IRepository<OrderItem> orderItemRepository, IRepository<Customer> customerRepository, IRepository<Product> productRepository)
+
+        public OrderServices(IRepository<Order> repository, IRepository<OrderItem> orderItemRepository, IRepository<Customer> customerRepository, IRepository<Product> productRepository, IOrderRepository orderRepository)
         {
             _repository = repository;
             _orderItemRepository = orderItemRepository;
             _customerRepository = customerRepository;
             _productRepository = productRepository;
+            _orderRepository = orderRepository;
         }
 
         public async Task CreateOrderAsync(CreateOrderDto model)
@@ -36,6 +43,14 @@ namespace Application.Usecasses.OrderServices
                 ShippingAddress = model.ShippingAddress,
                 OrderStatus = model.OrderStatus,
                 CustomerId = model.CustomerId,
+                CargoCityId = model.CargoCityId,
+                CargoTownId = model.CargoTownId,
+                CustomerName = model.CustomerName,
+                CustomerSurname =model.CustomerSurname,
+                CustomerPhone = model.CustomerPhone,
+                CustomerEmail = model.CustomerEmail,
+                
+
             };
             await _repository.CreateAsync(order);
             foreach (var item in model.OrderItems)
@@ -64,6 +79,17 @@ namespace Application.Usecasses.OrderServices
             await _repository.DeleteAsync(order);
         }
 
+        public async Task<List<ResultCityDto>> GetAllCity()
+        {
+            var city = await _orderRepository.GetCityAsync();
+            return city.Select(x => new ResultCityDto
+            {
+                CityId = x.CityId,
+                CityName = x.CityName,
+            }).ToList();
+        }
+      
+
         public async Task<List<ResultOrderDto>> GetAllOrderAsync()
         {
             var orders = await _repository.GetAllAsync();
@@ -81,7 +107,12 @@ namespace Application.Usecasses.OrderServices
                     ShippingAddress = item.ShippingAddress,
                     OrderStatus = item.OrderStatus,
                     CustomerId = item.CustomerId,
-                    Customer = orderCustomer,
+                    CargoCityId = item.CargoCityId,
+                    CargoTownId = item.CargoTownId,
+                    CustomerName = item.CustomerName,
+                    CustomerSurname = item.CustomerSurname,
+                    CustomerPhone = item.CustomerPhone,
+                    CustomerEmail = item.CustomerEmail,
                     OrderItems = new List<ResultOrderItemDto>()
                 };
                 foreach (var item1 in item.OrderItems)
@@ -114,9 +145,14 @@ namespace Application.Usecasses.OrderServices
                 OrderDate = order.OrderDate,
                 TotalAmount = order.TotalAmount,
                 ShippingAddress = order.ShippingAddress,
-                Customer = orderCustomer,
-                CustomerId = order.CustomerId,
                 OrderStatus = order.OrderStatus,
+                CustomerId = order.CustomerId,
+                CargoCityId = order.CargoCityId,
+                CargoTownId = order.CargoTownId,
+                CustomerName = order.CustomerName,
+                CustomerSurname = order.CustomerSurname,
+                CustomerPhone = order.CustomerPhone,
+                CustomerEmail = order.CustomerEmail,
                 OrderItems = new List<ResultOrderItemDto>()
             };
             foreach (var item in result.OrderItems)
@@ -135,6 +171,9 @@ namespace Application.Usecasses.OrderServices
             }
             return result;
         }
+
+       
+
         public async Task UpdateOrderAsync(UpdateOrderDto model)
         {
             var order = await _repository.GetByIdAsync(model.OrderId);
@@ -157,6 +196,18 @@ namespace Application.Usecasses.OrderServices
             }
             order.TotalAmount = sum;
             await _repository.UpdateAsync(order);
+        }
+
+        public async Task<List<ResultTownDto>> GetTownByCityId(int id)
+        {
+            var town = await _orderRepository.GetTownByCityIdAsync(id);
+            return town.Select(x => new ResultTownDto
+            {
+                Id = x.Id,
+                CityId = x.CityId,
+                TownId = x.TownId,
+                TownName = x.TownName,
+            }).ToList();
         }
     }
 }

@@ -1,6 +1,7 @@
 using Application.Interfaces;
 using Application.Interfaces.ICartItemsRepository;
 using Application.Interfaces.ICartsRepository;
+using Application.Interfaces.IOrdersRepository;
 using Application.Interfaces.IProductsRepository;
 using Application.Usecasses.CartItemServices;
 using Application.Usecasses.CartServices;
@@ -13,6 +14,7 @@ using Persistence.Context;
 using Persistence.Repositories;
 using Persistence.Repositories.CartItemsRepository;
 using Persistence.Repositories.CartsRepository;
+using Persistence.Repositories.OrdersRepository;
 using Persistence.Repositories.ProductsRepository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +30,8 @@ builder.Services.AddScoped<ICartServices, CartServices>();
 builder.Services.AddScoped<ICartItemServices, CartItemServices>();
 builder.Services.AddScoped<ICartsRepository, CartsRepository>();
 builder.Services.AddScoped<ICartItemsRepository, CartItemsRepository>();
+builder.Services.AddScoped<IOrderRepository, OrdersRepository>();
+builder.Services.AddScoped<IOrderServices, OrderServices>();
 
 
 

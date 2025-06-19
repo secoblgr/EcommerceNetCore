@@ -126,20 +126,24 @@ namespace Application.Usecasses.CartServices
                 TotalAmount = cart.TotalAmount,
                 Customer = customer,
             };
-            foreach (var item in cart.CartItems)
+            if (cart.CartItems != null)
             {
-                var productDto = await _productRepositorty.GetByFilterAsync(prd => prd.ProductId == item.ProductId);
-                var cartItemDto = new ResultCartItemDto
+                foreach (var item in cart.CartItems)
                 {
-                    CartId = item.CartId,
-                    CartItemId = item.CartItemId,
-                    ProductId = item.ProductId,
-                    Quantity = item.Quantity,
-                    TotalPrice = item.TotalPrice,
-                    Product = productDto,
-                };
-                result.CartItems.Add(cartItemDto);
+                    var productDto = await _productRepositorty.GetByFilterAsync(prd => prd.ProductId == item.ProductId);
+                    var cartItemDto = new ResultCartItemDto
+                    {
+                        CartId = item.CartId,
+                        CartItemId = item.CartItemId,
+                        ProductId = item.ProductId,
+                        Quantity = item.Quantity,
+                        TotalPrice = item.TotalPrice,
+                        Product = productDto,
+                    };
+                    result.CartItems.Add(cartItemDto);
+                }
             }
+
             return result;
         }
 
