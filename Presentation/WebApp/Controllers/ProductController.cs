@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces.IProductsRepository;
+using Application.Usecasses.CartItemServices;
 using Application.Usecasses.CategoryServices;
 using Application.Usecasses.ProductServices;
 using Microsoft.AspNetCore.Mvc;
@@ -10,15 +11,19 @@ namespace WebApp.Controllers
     {
         private readonly ICategoryServices _categoryServices;
         private readonly IProductServices _productServices;
-        public ProductController(ICategoryServices categoryServices, IProductServices productServices)
+        private readonly ICartItemServices _cartItemServices;
+        public ProductController(ICategoryServices categoryServices, IProductServices productServices, ICartItemServices cartItemServices)
         {
             _categoryServices = categoryServices;
             _productServices = productServices;
+            _cartItemServices = cartItemServices;
         }
         public async Task<IActionResult> Index(int categoryId, decimal min, decimal max, string sortOrder,string searchTerm)
         {
             var categories = await _categoryServices.GetAllCategoryAsync();
             ViewBag.Categories = categories;
+            var cartItemCount = await _cartItemServices.GetAllCartItemAsync();
+            ViewBag.CartItemCount = cartItemCount;
 
             // Fiyat filtreleme
             ViewBag.Price_1_500 = (await _productServices.GetProductsByPrice(1, 500)).Count;
@@ -62,6 +67,8 @@ namespace WebApp.Controllers
         {
             var categories = await _categoryServices.GetAllCategoryAsync();
             ViewBag.Categories = categories;
+            var cartItemCount = await _cartItemServices.GetAllCartItemAsync();
+            ViewBag.CartItemCount = cartItemCount;
 
             var product = await _productServices.GetByIdProductAsync(id);
             return View(product);

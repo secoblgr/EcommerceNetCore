@@ -13,7 +13,8 @@
             data: JSON.stringify(model),
             success: function (result) {
                 if (result.success) {
-                    alert("Product successfully added to basket!");
+                    // alert("Product successfully added to basket!");
+                    location.reload();
                 } else {
                     alert("Hata: " + (result.error?.message || "Wrong Error"));
                 }

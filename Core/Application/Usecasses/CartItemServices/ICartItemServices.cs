@@ -16,6 +16,7 @@ namespace Application.Usecasses.CartItemServices
         Task DeleteCartItemAsync(int id);
         Task UpdateQuantity(int cartId, int productId, int quantity);
         Task<bool> CheckCartItem(int cartId,int productId);
+        Task UpdateQuantityOnCart(UpdateCartItemDto model);
 
     }
 }
