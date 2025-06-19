@@ -89,5 +89,10 @@ namespace Application.Usecasses.CartItemServices
         {
             await _cartItemsRepository.UpdateQuantityAsync(cartId, productId, quantity);
         }
+
+        public async Task UpdateQuantityOnCart(UpdateCartItemDto model)
+        {
+            await _cartItemsRepository.UpdateQuantityOnCartAsync(model);
+        }
     }
 }

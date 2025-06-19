@@ -1,4 +1,6 @@
-﻿using Application.Interfaces.ICartItemsRepository;
+﻿using Application.Dtos.CartItemDtos;
+using Application.Interfaces.ICartItemsRepository;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Context;
 using System;
@@ -34,6 +36,18 @@ namespace Persistence.Repositories.CartItemsRepository
             {
                 var tempPrice = cart.TotalPrice / cart.Quantity;
                 cart.Quantity += quantity;
+                cart.TotalPrice = tempPrice * cart.Quantity;
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task UpdateQuantityOnCartAsync(UpdateCartItemDto model)
+        {
+            var cart = await _context.CartItems.Where(x => x.CartId == model.CartId && x.ProductId == model.ProductId).SingleOrDefaultAsync();
+            if (cart != null)
+            {
+                var tempPrice = cart.TotalPrice / cart.Quantity;
+                cart.Quantity += model.Quantity;
                 cart.TotalPrice = tempPrice * cart.Quantity;
                 await _context.SaveChangesAsync();
             }
