@@ -23,6 +23,5 @@ namespace Persistence.Context
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Town> Town { get; set; }
         public DbSet<City> City { get; set; }
-
     }
 }
