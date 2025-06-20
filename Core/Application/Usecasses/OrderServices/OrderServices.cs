@@ -38,7 +38,7 @@ namespace Application.Usecasses.OrderServices
             decimal sum = 0;
             var order = new Order
             {
-                OrderDate = model.OrderDate,
+                OrderDate = DateTime.Now,
                 TotalAmount = sum,
                 ShippingAddress = model.ShippingAddress,
                 OrderStatus = model.OrderStatus,
@@ -49,8 +49,6 @@ namespace Application.Usecasses.OrderServices
                 CustomerSurname =model.CustomerSurname,
                 CustomerPhone = model.CustomerPhone,
                 CustomerEmail = model.CustomerEmail,
-                
-
             };
             await _repository.CreateAsync(order);
             foreach (var item in model.OrderItems)

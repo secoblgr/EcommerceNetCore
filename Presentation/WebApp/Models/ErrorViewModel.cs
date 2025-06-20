@@ -4,6 +4,7 @@ namespace WebApp.Models
     {
         public string? RequestId { get; set; }
 
+        public  string err { get; set; }
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
 }

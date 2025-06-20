@@ -8,12 +8,5 @@ namespace WebApp.Controllers
         {
             return View();
         }
-        
-
-        public async Task <IActionResult> GetCity ()
-        {
-            return Json(new { success = true });
-        }
     }
-
 }

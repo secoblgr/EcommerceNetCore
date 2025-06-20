@@ -22,8 +22,6 @@ namespace WebApp.Controllers
         {
             var cartItemCount = await _cartItemServices.GetAllCartItemAsync();
             ViewBag.CartItemCount = cartItemCount;
-            decimal shippingPrice = 9.90m;
-            ViewBag.Shipping = shippingPrice;
             var categories = await _categoryServices.GetAllCategoryAsync();
             ViewBag.Categories = categories;
 
