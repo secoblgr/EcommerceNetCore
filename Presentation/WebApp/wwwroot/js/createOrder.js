@@ -6,16 +6,35 @@
     var cartId = parseInt(orderData.dataset.cartid);
     var total = totalAmount + shipping;
 
+    // Form alanlarını al
+    var name = $("#customerName").val().trim();
+    var surname = $("#customerSurname").val().trim();
+    var email = $("#customerEmail").val().trim();
+    var phone = $("#customerPhone").val().trim();
+    var cityId = $("#city").val();
+    var townId = $("#town").val();
+    var address = $("#shippingAddress").val().trim();
+
+    // Alanlardan biri boşsa toastr ile uyarı göster
+    if (!name || !surname || !email || !phone || cityId == "0" || townId == "0" || !address) {
+        toastr.options = {
+            "timeOut": "1000", // 1 saniye
+        };
+        toastr.error("Lütfen tüm alanları doldurunuz!", "Eksik Bilgi");
+        return;
+    }
+    // Hepsi doluysa gönder
     var data = {
-        CustomerName: $("#customerName").val().toLocaleUpperCase(),
-        CustomerSurname: $("#customerSurname").val().toLocaleUpperCase(),
-        CustomerEmail: $("#customerEmail").val(),
-        CustomerPhone: $("#customerPhone").val(),
-        CargoCityId: parseInt($("#city").val()),
-        CargoTownId: parseInt($("#town").val()),
-        ShippingAddress: $("#shippingAddress").val().toLocaleUpperCase(),
+        CustomerName: name.toLocaleUpperCase(),
+        CustomerSurname: surname.toLocaleUpperCase(),
+        CustomerEmail: email,
+        CustomerPhone: phone,
+        CargoCityId: parseInt(cityId),
+        CargoTownId: parseInt(townId),
+        ShippingAddress: address.toLocaleUpperCase(),
         TotalAmount: total,
     };
+
     $.ajax({
         type: 'POST',
         url: '/Order/CreateOrder',
@@ -25,11 +44,13 @@
             toastr.success('Siparişiniz başarılı bir şekilde oluşturuldu!', 'Başarılı');
             setTimeout(function () {
                 window.location.href = '/Home/Index';
-            }, 2000); // 2 saniye sonra yönlendir
+            }, 1500); 
         },
         error: function (response) {
+            toastr.options = {
+                "timeOut": "1000",
+            };
             toastr.error('Sipariş sırasında bir hata oluştu.', 'Hata');
-            console.error(response.responseText);
         }
     });
 }

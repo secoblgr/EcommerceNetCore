@@ -12,4 +12,8 @@
     <ProjectReference Include="..\..\Infrasturucture\Persistence\Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\ViewModels\" />
+  </ItemGroup>
+
 </Project>
