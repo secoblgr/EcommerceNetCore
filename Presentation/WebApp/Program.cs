@@ -38,12 +38,8 @@ builder.Services.AddScoped<IOrderRepository, OrdersRepository>();
 builder.Services.AddScoped<IOrderServices, OrderServices>();
 
 //identity servisi ve servis ayarları.
-builder.Services.AddDbContext<AppIdentityDbContext>(options =>
-{
-    var configuration = builder.Configuration;
-    var connectionString = configuration.GetConnectionString("DefaultConnection");
-    options.UseSqlServer(connectionString);
-});
+builder.Services.AddDbContext<AppIdentityDbContext>();
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
