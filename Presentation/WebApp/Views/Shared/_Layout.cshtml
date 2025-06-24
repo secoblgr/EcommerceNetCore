@@ -1,7 +1,7 @@
 ﻿@using Application.Dtos.CategoryDtos
- @{ 
-    var categories = ViewBag.Categories as List<ResultCategoryDto>; 
- } 
+@{
+    var categories = ViewBag.Categories as List<ResultCategoryDto>;
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -133,12 +133,24 @@
                             </div>
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
-                        <div class="navbar-nav ml-auto py-0">
-                            <a href="@Url.Action("Login","Account")" class="nav-item nav-link">Login</a>
-                        </div>
+                        @if (User.Identity.Name == null)
+                        {
+                            <div class="navbar-nav ml-auto py-0">
+                                <a href="@Url.Action("Login","Account")" class="nav-item nav-link">Login</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="navbar-nav ms-auto d-flex align-items-center py-0">
+                                <a href="#" class="nav-item nav-link d-flex align-items-center me-3">
+                                    <img src="/img/user.jpg" alt="Avatar" class="rounded-circle me-2  mr-2" width="44" height="44">
+                                    <span class="fw-semibold">@User.Identity.Name.Split('@')[0].ToUpper()</span>
+                                </a>
+                                <a href="@Url.Action("Logout","Account")" class="nav-item nav-link">Log Out</a>
+                            </div>
+                        }
                     </div>
                 </nav>
-
             </div>
         </div>
     </div>

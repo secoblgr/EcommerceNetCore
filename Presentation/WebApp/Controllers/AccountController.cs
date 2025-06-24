@@ -1,7 +1,5 @@
 ﻿using Application.Dtos.AccountDtos;
 using Application.Usecasses.AccountServices;
-using Application.Usecasses.CartItemServices;
-using Application.Usecasses.CategoryServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Threading.Tasks;
@@ -44,11 +42,17 @@ namespace WebApp.Controllers
 
             if (value.Contains("Succesfully"))
             {
-                return RedirectToAction("index", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
             ViewBag.value = value;
             return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _accountService.Logout();
+            return RedirectToAction("Index","Home");
         }
     }
 }
