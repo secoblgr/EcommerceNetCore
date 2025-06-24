@@ -20,18 +20,62 @@ namespace Persistence.Repositories
             _signInManager = signInManager;
         }
 
-        public Task<string> LoginAsync(LoginDto dto)
+        public async Task<string> LoginAsync(LoginDto dto)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByEmailAsync(dto.Email);
+            if (user == null)
+            {
+                return "User Not Found !";
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(dto.Email, dto.Password,true,false);
+
+            if (result.Succeeded)
+            {
+                return "Login Succesfully !";
+            }
+            if (result.IsLockedOut)
+            {
+                return  "User Locked !";
+            }
+            if (result.IsNotAllowed)
+            {
+                return "No Entry Allowed !";
+            }
+            if (result.RequiresTwoFactor)
+            {
+                return "Verification Required!";
+            }
+            return "Email or Password Wrong !";
         }
 
-        public Task<string> RegisterAsync(RegisterDto dto)
+        public async Task<string> RegisterAsync(RegisterDto dto)
         {
-            throw new NotImplementedException();
+            if (dto.Password != dto.RePassword)
+            {
+                return "Şifreler uyumlu değil !";
+            }
+            var user = new AppIdentityUser
+            {
+                FirstName = dto.Name,
+                LastName = dto.Surname,
+                UserName = dto.Email,
+                Email = dto.Email,
+                PhoneNumber = dto.Phone,
+            };
+            var result = await _userManager.CreateAsync(user,dto.Password);
+            if (result.Succeeded)
+            {
+                return "Kayıt Başarılı!";
+            }
+            else
+            {
+                return result.Errors.ToString();
+            }
         }
-        public Task LogoutAsync()
+        public async Task LogoutAsync()
         {
-            throw new NotImplementedException();
+            await _signInManager.SignOutAsync();
         }
         public Task<string> ChangePasswordAsync()
         {

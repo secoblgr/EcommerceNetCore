@@ -3,6 +3,7 @@ using Application.Interfaces.ICartItemsRepository;
 using Application.Interfaces.ICartsRepository;
 using Application.Interfaces.IOrdersRepository;
 using Application.Interfaces.IProductsRepository;
+using Application.Usecasses.AccountServices;
 using Application.Usecasses.CartItemServices;
 using Application.Usecasses.CartServices;
 using Application.Usecasses.CategoryServices;
@@ -36,6 +37,11 @@ builder.Services.AddScoped<ICartsRepository, CartsRepository>();
 builder.Services.AddScoped<ICartItemsRepository, CartItemsRepository>();
 builder.Services.AddScoped<IOrderRepository, OrdersRepository>();
 builder.Services.AddScoped<IOrderServices, OrderServices>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IUserIdentityRepository, UserIdentityRepository>();
+
+
+
 
 //identity servisi ve servis ayarları.
 builder.Services.AddDbContext<AppIdentityDbContext>();

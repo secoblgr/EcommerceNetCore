@@ -1,19 +1,19 @@
-﻿using Application.Usecasses.CartItemServices;
+﻿using Application.Dtos.AccountDtos;
+using Application.Usecasses.AccountServices;
+using Application.Usecasses.CartItemServices;
 using Application.Usecasses.CategoryServices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.Threading.Tasks;
 
 namespace WebApp.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly ICategoryServices _categoryServices;
-        private readonly ICartItemServices _cartItemServices;
-
-        public AccountController(ICategoryServices categoryServices, ICartItemServices cartItemServices)
+        private readonly IAccountService _accountService;
+        public AccountController(IAccountService accountService)
         {
-            _categoryServices = categoryServices;
-            _cartItemServices = cartItemServices;
+            _accountService = accountService;
         }
 
         public IActionResult Index()
@@ -22,18 +22,32 @@ namespace WebApp.Controllers
         }
         public async Task<IActionResult> Login()
         {
-            var categories = await _categoryServices.GetAllCategoryAsync();
-            ViewBag.Categories = categories;
-            var cartItemCount = await _cartItemServices.GetAllCartItemAsync();
-            ViewBag.CartItemCount = cartItemCount;
             return View();
         }
         public async Task<IActionResult> Register()
         {
-            var categories = await _categoryServices.GetAllCategoryAsync();
-            ViewBag.Categories = categories;
-            var cartItemCount = await _cartItemServices.GetAllCartItemAsync();
-            ViewBag.CartItemCount = cartItemCount;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterDto dto)
+        {
+            var value = await _accountService.Register(dto);
+
+            return RedirectToAction("Login", "Account");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginDto dto)
+        {
+            var value = await _accountService.Login(dto);
+
+            if (value.Contains("Succesfully"))
+            {
+                return RedirectToAction("index", "Home");
+            }
+
+            ViewBag.value = value;
             return View();
         }
     }

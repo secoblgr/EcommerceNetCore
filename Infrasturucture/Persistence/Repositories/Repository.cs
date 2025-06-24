@@ -56,7 +56,5 @@ namespace Persistence.Repositories
         {
             return await _context.Set<T>().Take(count).ToListAsync();
         }
-
-       
     }
 }
