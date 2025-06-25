@@ -33,9 +33,7 @@
                 <div class="d-inline-flex align-items-center">
                     <a class="text-dark" href="@Url.Action("Index","Faqs")">FAQs</a>
                     <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">Help</a>
-                    <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="">Support</a>
+                    <a class="text-dark" href="@Url.Action("Index","Support")">Support</a>
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
@@ -88,7 +86,7 @@
     </div>
     <!-- Topbar End -->
     <!-- Navbar Start -->
-    <div class="container-fluid mb-5">
+    <div class="container-fluid mb-3">
         <div class="row border-top px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
                 <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
@@ -97,7 +95,7 @@
                 </a>
                 <nav class="collapse hide navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 w-75"
                      id="navbar-vertical"
-                     style="position: absolute; top: 11px; left: 1px; z-index: 99; background-color:gainsboro;">
+                     style="position: absolute; top: 60px; left: 15px; z-index: 99; background-color:#edf1ff;">
                     <div class="navbar-nav w-100 overflow-hidden p-1" style="height: 410px;">
                         @if (categories != null)
                         {
@@ -128,6 +126,14 @@
                             <a href="@Url.Action("Index", "Product")"
                                class="nav-item nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Product" ? "active" : "")">
                                 Products
+                            </a>
+                            <a href="@Url.Action("Index", "Cart",new {id = 2})"
+                               class="nav-item nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Cart" ? "active" : "")">
+                                Cart
+                            </a>
+                            <a href="@Url.Action("Index", "Support")"
+                               class="nav-item nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Support" ? "active" : "")">
+                                Support
                             </a>
                             <a href="@Url.Action("Index", "Contact")"
                                class="nav-item nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Contact" ? "active" : "")">

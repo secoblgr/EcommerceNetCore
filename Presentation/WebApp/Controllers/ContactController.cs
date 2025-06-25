@@ -24,5 +24,11 @@ namespace WebApp.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create()
+        {
+            return Ok();
+        }
     }
 }

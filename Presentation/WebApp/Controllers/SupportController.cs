@@ -4,15 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Controllers
 {
-    public class FaqsController : Controller
+    public class SupportController : Controller
     {
-        private readonly ICartItemServices _cartItemServices;      
+        private readonly ICartItemServices _cartItemServices;
         private readonly ICategoryServices _categoryServices;
-
-        public FaqsController(ICategoryServices categoryServices, ICartItemServices cartItemServices)
+        public SupportController(ICartItemServices cartItemServices, ICategoryServices categoryServices)
         {
-            _categoryServices = categoryServices;
             _cartItemServices = cartItemServices;
+            _categoryServices = categoryServices;
         }
 
         public async Task<IActionResult> Index()
