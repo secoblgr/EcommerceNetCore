@@ -25,7 +25,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-lg-7 pb-5">
             <h3 class="font-weight-semi-bold">@Model.ProductName</h3>
             <div class="d-flex mb-3">
@@ -90,8 +89,14 @@
                     </div>
                 </form>
             </div>
-            <div class="d-flex align-items-center mb-4 pt-2  ">
-                <a href="#" class="btn btn-sm text-dark p-0 mr-3"  onclick="addToCart(@Model.ProductId,@Model.Price)">
+            <div class="d-flex align-items-center mb-4 pt-2">
+                <button type="button" class="btn btn-primary d-flex align-items-center mr-4 ">
+                    Stock
+                    <span class="badge bg-light text-dark ms-2 px-1 py-1 ml-1 rounded-pill">
+                        @Model.Stock
+                    </span>
+                </button>
+                <a href="#" class="btn btn-sm text-dark p-0 mr-3" onclick="addToCart(@Model.ProductId,@Model.Price)">
                     <div class="input-group quantity mr-3" style="width:130px; padding:10px; background-color:aliceblue;">
                         <i class="fas fa-shopping-cart text-primary mr-2 mt-1"></i>Add To Cart
                     </div>

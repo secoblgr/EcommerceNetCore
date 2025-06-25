@@ -73,6 +73,5 @@ namespace WebApp.Controllers
             var product = await _productServices.GetByIdProductAsync(id);
             return View(product);
         }
-
     }
 }

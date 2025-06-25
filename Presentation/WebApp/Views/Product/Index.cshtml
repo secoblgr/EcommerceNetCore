@@ -61,17 +61,17 @@
                 <div class="row pb-3">
                     <div class="col-12 pb-1">
                         <div class="d-flex align-items-center justify-content-between mb-4">
-                            <form method="post" action="/Product/Index">
-                                <div class="input-group">
-                                    <input type="text" name="searchTerm" class="form-control w-75" placeholder="Search" />
-                                    <div class="input-group-append">
-                                        <button type="submit" class="input-group-text bg-transparent text-primary" style="border:none; cursor:pointer;">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                            <div class="dropdown mb-4">
+                            @* <form method="post" action="@Url.Action("Index","Product")"> *@
+                            @*     <div class="input-group"> *@
+                            @*         <input type="text" name="searchTerm" class="form-control w-75" placeholder="Search" /> *@
+                            @*         <div class="input-group-append"> *@
+                            @*             <button type="submit" class="input-group-text bg-transparent text-primary" style="border:none; cursor:pointer;"> *@
+                            @*                 <i class="fa fa-search"></i> *@
+                            @*             </button> *@
+                            @*         </div> *@
+                            @*     </div> *@
+                            @* </form> *@
+                            <div class="dropdown mb-4 ml-auto">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
                                     Sort By Price
                                 </button>
