@@ -12,6 +12,7 @@ using Application.Usecasses.OrderItemServices;
 using Application.Usecasses.OrderServices;
 using Application.Usecasses.ProductServices;
 using Application.Usecasses.SubscriberServices;
+using Application.Usecasses.SupportServices;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +42,8 @@ builder.Services.AddScoped<IOrderServices, OrderServices>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserIdentityRepository, UserIdentityRepository>();
 builder.Services.AddScoped<ISubscriberServices, SubscriberServices>();
+builder.Services.AddScoped<ISupportServices, SupportServices>();
+
 
 
 

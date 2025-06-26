@@ -1,5 +1,7 @@
-﻿using Application.Usecasses.CartItemServices;
+﻿using Application.Dtos.SupportDtos;
+using Application.Usecasses.CartItemServices;
 using Application.Usecasses.CategoryServices;
+using Application.Usecasses.SupportServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Controllers
@@ -8,10 +10,12 @@ namespace WebApp.Controllers
     {
         private readonly ICartItemServices _cartItemServices;
         private readonly ICategoryServices _categoryServices;
-        public SupportController(ICartItemServices cartItemServices, ICategoryServices categoryServices)
+        private readonly ISupportServices _supportServices;
+        public SupportController(ICartItemServices cartItemServices, ICategoryServices categoryServices, ISupportServices supportServices)
         {
             _cartItemServices = cartItemServices;
             _categoryServices = categoryServices;
+            _supportServices = supportServices;
         }
 
         public async Task<IActionResult> Index()
@@ -22,6 +26,15 @@ namespace WebApp.Controllers
             ViewBag.CartItemCount = cartItemCount;
 
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateSupportDto model)
+        {
+            model.CreatedDate = DateTime.Now;
+            model.Status = 1;
+            await _supportServices.CreateSupportAsync(model);
+            return RedirectToAction("Index","Home");
         }
     }
 }

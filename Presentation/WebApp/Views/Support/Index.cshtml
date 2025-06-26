@@ -1,11 +1,11 @@
 ﻿  <!-- Page Header Start -->
 <div class="container-fluid bg-secondary mb-5">
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-        <h1 class="font-weight-semi-bold text-uppercase mb-3">Help </h1>
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">Support </h1>
         <div class="d-inline-flex">
             <p class="m-0"><a href="@Url.Action("Index","Home")">Home</a></p>
             <p class="m-0 px-2">-</p>
-            <p class="m-0">Help</p>
+            <p class="m-0">Support</p>
         </div>
     </div>
 </div>
@@ -19,7 +19,7 @@
         <div class="col-lg-7 mb-5">
             <div class="contact-form">
                 <div id="success"></div>
-                <form action="/" method="post">
+                <form action="@Url.Action("Create","Support")" method="post">
                     <div class="control-group mb-4">
                         <input type="text" class="form-control" id="name" name="name" placeholder=" Name" required />
                     </div>
@@ -34,7 +34,7 @@
                     </div>
                     <div>
                         <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">
-                            Send Message
+                            Request Support
                         </button>
                     </div>
                 </form>

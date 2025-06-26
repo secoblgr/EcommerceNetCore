@@ -24,6 +24,8 @@ namespace Persistence.Context
         public DbSet<Town> Town { get; set; }
         public DbSet<City> City { get; set; }
         public DbSet<Subscriber> Subscribers { get; set; }
+        public DbSet<Support> Support { get; set; }
+
 
     }
 }
