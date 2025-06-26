@@ -1,5 +1,7 @@
-﻿using Application.Usecasses.CartItemServices;
+﻿using Application.Dtos.ContactDtos;
+using Application.Usecasses.CartItemServices;
 using Application.Usecasses.CategoryServices;
+using Application.Usecasses.ContactServices;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -9,10 +11,12 @@ namespace WebApp.Controllers
     {
         private readonly ICategoryServices _categoryServices;
         private readonly ICartItemServices _cartItemServices;
-        public ContactController(ICategoryServices categoryServices, ICartItemServices cartItemServices)
+        private readonly IContactServices _contactServices;
+        public ContactController(ICategoryServices categoryServices, ICartItemServices cartItemServices, IContactServices contactServices)
         {
             _categoryServices = categoryServices;
             _cartItemServices = cartItemServices;
+            _contactServices = contactServices;
         }
 
         public async Task<IActionResult> Index()
@@ -26,9 +30,12 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(CreateContactDto model)
         {
-            return Ok();
+            model.CreatedDate = DateTime.Now;
+            model.Status = 1;
+            await _contactServices.CreateContactAsync(model);
+            return RedirectToAction("Index", "Contact");
         }
     }
 }

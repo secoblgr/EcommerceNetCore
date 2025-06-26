@@ -7,6 +7,7 @@ using Application.Usecasses.AccountServices;
 using Application.Usecasses.CartItemServices;
 using Application.Usecasses.CartServices;
 using Application.Usecasses.CategoryServices;
+using Application.Usecasses.ContactServices;
 using Application.Usecasses.CustomerServices;
 using Application.Usecasses.OrderItemServices;
 using Application.Usecasses.OrderServices;
@@ -43,6 +44,8 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserIdentityRepository, UserIdentityRepository>();
 builder.Services.AddScoped<ISubscriberServices, SubscriberServices>();
 builder.Services.AddScoped<ISupportServices, SupportServices>();
+builder.Services.AddScoped<IContactServices, ContactServices>();
+
 
 
 
