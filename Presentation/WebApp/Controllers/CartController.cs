@@ -35,7 +35,7 @@ namespace WebApp.Controllers
         {
             try
             {
-                model.CartId = 2;
+                model.CartId = 15;
                 var cart = await _cartServices.GetByIdCartAsync(model.CartId);
                 var check = await _cartItemServices.CheckCartItem(model.CartId, model.ProductId);
 

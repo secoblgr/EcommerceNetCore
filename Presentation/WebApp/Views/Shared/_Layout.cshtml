@@ -32,8 +32,6 @@
             <div class="col-lg-6 d-none d-lg-block">
                 <div class="d-inline-flex align-items-center">
                     <a class="text-dark" href="@Url.Action("Index","Faqs")">FAQs</a>
-                    <span class="text-muted px-2">|</span>
-                    <a class="text-dark" href="@Url.Action("Index","Support")">Support</a>
                 </div>
             </div>
             <div class="col-lg-6 text-center text-lg-right">
@@ -69,7 +67,7 @@
                 </form>
             </div>
             <div class="col-lg-3 col-6 text-right">
-                <a href="@Url.Action("Index","Cart", new {id = 2})" class="btn border">
+                <a href="@Url.Action("Index","Cart", new {id = 15})" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
                     <span class="badge  font-weight-bolder">
                         @ViewBag.CartItemCount.Count
@@ -121,7 +119,7 @@
                                class="nav-item nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Product" ? "active" : "")">
                                 Products
                             </a>
-                            <a href="@Url.Action("Index", "Cart",new {id = 2})"
+                            <a href="@Url.Action("Index", "Cart",new {id = 15})"
                                class="nav-item nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Cart" ? "active" : "")">
                                 Cart
                             </a>
